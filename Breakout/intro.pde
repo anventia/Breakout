@@ -10,5 +10,6 @@ void intro() {
 }
 
 void introClick() {
-  mode = GAME;
+  counter = 0;
+  mode = OPTIONS;
 }

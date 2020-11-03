@@ -2,8 +2,9 @@
 int mode;
 final int INTRO    = 0;
 final int GAME     = 1;
-final int PAUSE    = 2;
-final int GAMEOVER = 3;
+final int OPTIONS  = 2;
+final int PAUSE    = 3;
+final int GAMEOVER = 4;
 
 // Fonts
 PFont MontserratMedium;
@@ -21,7 +22,7 @@ color green = #2EFF79;  // Green
 
 // Bricks
 int bricks;
-int brickD;
+float brickD;
 int rowNumber = 0;
 int[] brickColor;
 float[] brickX;
@@ -43,16 +44,22 @@ int paddleX, paddleY;
 boolean keyA = false;
 boolean keyD = false;
 
-// Other
-int score = 0;
-
 // Screen
 final int sWidth = 1280;
 final int sHeight = 720;
 
+// Other
+int score;
+int lives;
+int counter;
+int sliderX = sWidth/2-300;
+boolean sliderDown = false;
+
+
+
 void setup() {
   size(1280, 720);
-  gameSetup();
+  
   mode = INTRO;
   MontserratMedium = createFont("Montserrat-Medium.ttf", 100);
   textFont(MontserratMedium);
@@ -65,6 +72,8 @@ void draw() {
     intro();
   } else if (mode == GAME) {
     game();
+  } else if (mode == OPTIONS) {
+    options();
   } else if (mode == PAUSE) {
     pause();
   } else if (mode == GAMEOVER) {

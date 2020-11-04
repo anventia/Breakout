@@ -5,9 +5,16 @@ void options() {
   counter += 1;
   if (counter > 30) background(bg2);
   
+  // Stats //
   fill(0);
   textSize(80);
-  text("Set Brick Size", width/2, height-30);
+  text("Edit Bricks", width/2, height-30);
+    // Size
+  textSize(40);
+  textAlign(LEFT);
+  text("Bricks: "+bricks, 20, height-20);
+  text("Brick Size: "+int(brickD), 20,height-60);
+  textAlign(CENTER);
   
   // Slider //
   stroke(0);
@@ -48,6 +55,7 @@ void optionsClick() {
   
   if (mouseX > width-70-50 && mouseX < width-70+50 && mouseY > height-70-50 && mouseY < height-70+50) {
     gameSetup();
+    gameSetScore();
     mode = GAME;
   }
 }

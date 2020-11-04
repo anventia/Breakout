@@ -1,3 +1,5 @@
+// Imports
+
 // Modes
 int mode;
 final int INTRO    = 0;
@@ -52,7 +54,7 @@ final int sHeight = 720;
 int score;
 int lives;
 int counter;
-int sliderX = sWidth/2-300;
+float sliderX = sWidth/2-300;
 boolean sliderDown = false;
 
 

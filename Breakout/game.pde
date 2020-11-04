@@ -1,6 +1,4 @@
-void gameSetup() {
-  initializeBricks();
-    
+void gameSetup() {    
   ballD = 20;
   ballSX = 0;
   ballSY = 1;
@@ -11,7 +9,9 @@ void gameSetup() {
   paddleX = width/2;
   paddleY = sHeight;
   paddleS = 15;
-  
+}
+
+void gameSetScore() {
   score = 0;
   lives = 5;
 }
@@ -29,6 +29,12 @@ void game() {
   textSize(100);
   fill(0);
   text(score, width/2, height-100);
+  
+  // Lives //
+  textSize(50);
+  textAlign(RIGHT);
+  text("Lives: "+lives, width-10, height-10);
+  textAlign(CENTER);
   
   //fill(255);
   //rect(width/2,brickY[bricks-1], width,5);
@@ -61,7 +67,10 @@ void game() {
     // Wall Collisions
   if (ballX < ballD/2 || ballX > width-ballD/2) ballSX *= -1;
   if (ballY < ballD/2) ballSY *= -1;
-  if (ballY > height-ballD/2) ballSY *= -1; // Replace this with losing a point later
+  if (ballY > height-ballD/2) {
+    gameSetup();
+    lives -= 1;
+  }
   if (ballX < ballD/2) ballX = ballD/2;  // Prevents ball from glitching off the screen
   if (ballX > width-ballD/2) ballX = width-ballD/2;  // ^
     // Paddle Collisions
@@ -85,10 +94,9 @@ void game() {
 }
 
 void initializeBricks() {
-  
-  brickRow = int((width-200)/(brickD))+1; // Number of bricks in a row
-  numRows = int(map(brickD, 25,80, 12,4));
-  bricks = int(brickRow*numRows-(numRows/2));
+  brickRow = int((sWidth-200)/(brickD))-4;     // Number of bricks in a row
+  numRows = int(map(brickD, 25,80, 12,4));     // Number of rows
+  bricks = int(brickRow*numRows-(numRows/2));  // Number of bricks
   rowNumber = 0;
   brickColor = new int[bricks];
   brickX = new float[bricks];
@@ -96,22 +104,23 @@ void initializeBricks() {
 
   int i = 0;
   boolean rowIndent = false;
-  float tempX = 100;
+  float tempX = 100.0;
   float tempY = 100;
-  float spacing = (width-200)/(brickRow+1);
+  float spacing = (1080.0)/(brickRow-1.0);  // Spacing between the bricks
+  
   while (i < bricks) {
     brickX[i] = tempX;
     brickY[i] = tempY;
     tempX += spacing;
     if (rowIndent == false) {
-      if (tempX > width-100) {
-        tempX = 100+spacing/2;
+      if (int(tempX) > width-100) {
+        tempX = 100.0+spacing/2;
         tempY += sqrt(pow((spacing)/2,2)*3);
         rowIndent = true;
       }
     } else {
-      if (tempX > width-100-(spacing)/2) {
-        tempX = 100;
+      if (int(tempX) > width-100-(spacing)/2) {
+        tempX = 100.0;
         tempY += sqrt(pow((spacing)/2,2)*3);
         rowIndent = false;
       }

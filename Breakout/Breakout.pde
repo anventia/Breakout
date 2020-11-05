@@ -1,4 +1,18 @@
 // Imports
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+import ddf.minim.effects.*;
+import ddf.minim.signals.*;
+import ddf.minim.spi.*;
+import ddf.minim.ugens.*;
+
+// Sound
+Minim minim;
+AudioPlayer introTheme;
+AudioPlayer paddleB;
+AudioPlayer brickB;
+AudioPlayer wallB;
+AudioPlayer scoreS;
 
 // Modes
 int mode;
@@ -61,6 +75,13 @@ boolean sliderDown = false;
 
 void setup() {
   size(1280, 720);
+  
+  minim = new Minim(this);
+  introTheme = minim.loadFile("intro.mp3");
+  paddleB = minim.loadFile("leftpaddle.wav");
+  brickB = minim.loadFile("brick.wav");
+  wallB = minim.loadFile("wall.wav");
+  introTheme.loop();
   
   mode = INTRO;
   MontserratMedium = createFont("Montserrat-Medium.ttf", 100);

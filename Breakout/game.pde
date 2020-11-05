@@ -17,6 +17,7 @@ void gameSetScore() {
 }
 
 void game() {
+  introTheme.pause();
   //background(bg);
   fill(bg, 30);
   stroke(bg);
@@ -65,8 +66,16 @@ void game() {
   ballX += ballSX;
   ballY += ballSY;
     // Wall Collisions
-  if (ballX < ballD/2 || ballX > width-ballD/2) ballSX *= -1;
-  if (ballY < ballD/2) ballSY *= -1;
+  if (ballX < ballD/2 || ballX > width-ballD/2) {
+    wallB.play();
+    ballSX *= -1;
+    wallB.rewind();
+  }
+  if (ballY < ballD/2) {
+    wallB.play();
+    ballSY *= -1;
+    wallB.rewind();
+  }
   if (ballY > height-ballD/2) {
     gameSetup();
     lives -= 1;
@@ -75,16 +84,19 @@ void game() {
   if (ballX > width-ballD/2) ballX = width-ballD/2;  // ^
     // Paddle Collisions
   if (dist(ballX,ballY, paddleX,paddleY) < paddleD/2+ballD/2) {
+    paddleB.play();
     ballSX = (ballX-paddleX)/8;
     ballSY = (ballY-paddleY)/8;
+    paddleB.rewind();
   }
     // Brick Collisions
   int i = 0;
   while (i < bricks) {
     if (dist(ballX,ballY, brickX[i],brickY[i]) < ballD/2+brickD/2) {
+      brickB.play();
       ballSX = (ballX-brickX[i])/map(ballD, 1,100, 1,16);  // Bounce ball
       ballSY = (ballY-brickY[i])/map(ballD, 1,100, 1,16);  //
-      
+      brickB.rewind();
       brickX[i] = -100;  // Remove brick off screen
       brickY[i] = -100;  //
       score += 1;  // Increase points

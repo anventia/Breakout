@@ -64,6 +64,12 @@ boolean keyD = false;
 final int sWidth = 1280;
 final int sHeight = 720;
 
+// Background Gif
+PImage[] gif;
+int numFrames;
+int gifFrame = 0;
+
+
 // Other
 int score;
 int lives;
@@ -76,6 +82,16 @@ boolean sliderDown = false;
 void setup() {
   size(1280, 720);
   
+  // Background Gif
+  numFrames = 23;
+  gif = new PImage[numFrames];
+  int i = 0;
+  while (i < numFrames) {
+    gif[i] = loadImage("frame_"+i+"_delay-0.04s.gif"); 
+    i += 1;
+  }
+  
+  // Sound
   minim = new Minim(this);
   introTheme = minim.loadFile("intro.mp3");
   paddleB = minim.loadFile("leftpaddle.wav");

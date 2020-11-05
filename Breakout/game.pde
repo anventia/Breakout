@@ -103,6 +103,13 @@ void game() {
     }
     i += 1;
   }
+  
+  // Scoring //
+    // Win
+  if (score == bricks || lives == 0) {
+    counter = 0;
+    mode = GAMEOVER;
+  }
 }
 
 void initializeBricks() {

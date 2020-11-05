@@ -26,6 +26,13 @@ void game() {
   fill(bg);
   //rect(width/2,720-paddleD/4, width,paddleD/2);
   
+  // Pause //
+  textSize(25);
+  fill(0);
+  textAlign(LEFT);
+  text("Click anywhere to pause.",10, height-10);
+  textAlign(CENTER);
+  
   // Score //
   textSize(100);
   fill(0);
@@ -176,5 +183,5 @@ void drawBricks() {
 }
 
 void gameClick() {
-  
+  mode = PAUSE;
 }
